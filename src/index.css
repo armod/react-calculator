@@ -36,6 +36,10 @@ body {
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: rgba(137, 43, 226, 0.7);
+}
+
 .btn.rowna {
   background-color: green;
 }
