@@ -40,6 +40,10 @@ body {
   background-color: rgba(137, 43, 226, 0.7);
 }
 
+.btn:active {
+  background-color: aquamarine;
+}
+
 .btn.rowna {
   background-color: green;
 }
