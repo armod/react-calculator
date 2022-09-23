@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Button } from './Button'
 
 function App() {
   const [number1, setNumber1] = useState([])
@@ -10,11 +9,11 @@ function App() {
   const handleNumber = (num) => {
     if (operator === '') {
       number1.push(num)
-      setNumber1([...number1])
-      console.log(num, number1)
+      setNumber1([number1.join('')])
+      console.log(num, number1, number1.join(''))
     } else {
       number2.push(num)
-      setNumber2([...number2])
+      setNumber2([number2.join('')])
       //setOperator('')
       console.log(num, number2)
     }
@@ -27,7 +26,8 @@ function App() {
 
   const oblicz = () => {
     setResult(Number(number1) + Number(number2))
-    console.log('oblicz=', result)
+    // setOperator('')
+    console.log('oblicz=', result, setResult)
   }
 
   const clear = () => {
