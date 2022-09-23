@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [number1, setNumber1] = useState([])
   const [number2, setNumber2] = useState([])
   const [operator, setOperator] = useState('')
   const [result, setResult] = useState()
+  const [error, setError] = useState('')
+
+  const notify = () => {
+    toast('Wow so easy!')
+  }
 
   const handleNumber = (num) => {
     if (operator === '') {
@@ -23,11 +30,29 @@ function App() {
     setOperator(znak)
     console.log('znak=', znak)
   }
-
+  let tab = []
   const oblicz = () => {
-    setResult(Number(number1) + Number(number2))
+    if (operator === '+') {
+      setResult(Number(number1) + Number(number2))
+    }
+    if (operator === '-') {
+      setResult(Number(number1) - Number(number2))
+    }
+    if (operator === '/') {
+      if (Number(number2) === 0) {
+        setError('Pamiętaj cholero nie dziel przez zero!')
+        // alert(error)
+        clear()
+      } else {
+        setResult(Number(number1) / Number(number2))
+      }
+    }
+    if (operator === 'x') {
+      setResult(Number(number1) * Number(number2))
+    }
+    tab = number1.concat(number2)
     // setOperator('')
-    console.log('oblicz=', result, setResult)
+    console.log('oblicz=', result, setResult, 'tab', tab)
   }
 
   const clear = () => {
@@ -39,6 +64,7 @@ function App() {
 
   return (
     <>
+      {error}
       <div className='container'>
         {/* tablica wyników */}
         <div className='wynik'>
@@ -59,8 +85,15 @@ function App() {
         >
           C
         </div>
-        <div className='btn'>/</div>
-        <div className='btn podwojny' name='xxx' onClick={''}>
+        <div
+          className='btn'
+          onClick={() => {
+            handleOperator('/')
+          }}
+        >
+          /
+        </div>
+        <div className='btn podwojny' onClick={notify}>
           back
         </div>
         {/* II rząd */}
@@ -90,7 +123,14 @@ function App() {
         >
           9
         </div>
-        <div className='btn'>x</div>
+        <div
+          className='btn'
+          onClick={() => {
+            handleOperator('x')
+          }}
+        >
+          x
+        </div>
         {/* III rząd */}
         <div
           className='btn'
@@ -116,7 +156,14 @@ function App() {
         >
           6
         </div>
-        <div className='btn'>-</div>
+        <div
+          className='btn'
+          onClick={() => {
+            handleOperator('-')
+          }}
+        >
+          -
+        </div>
         {/* IV rząd */}
         <div
           className='btn'
@@ -144,7 +191,6 @@ function App() {
         </div>
         <div
           className='btn'
-          value='+'
           onClick={() => {
             handleOperator('+')
           }}
