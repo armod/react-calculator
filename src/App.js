@@ -4,17 +4,37 @@ import { Button } from './Button'
 function App() {
   const [number1, setNumber1] = useState([])
   const [number2, setNumber2] = useState([])
-  const [result, setResult] = useState(0)
+  const [operator, setOperator] = useState('')
+  const [result, setResult] = useState()
 
   const handleNumber = (num) => {
-    // setNumber1([num])
-    setNumber1([...number1, num])
-    console.log(num, number1)
+    if (operator === '') {
+      number1.push(num)
+      setNumber1([...number1])
+      console.log(num, number1)
+    } else {
+      number2.push(num)
+      setNumber2([...number2])
+      //setOperator('')
+      console.log(num, number2)
+    }
   }
 
-  const handleOperator = () => {
-    // setResult(e.target.value)
-    console.log(/* e.target.name */)
+  const handleOperator = (znak) => {
+    setOperator(znak)
+    console.log('znak=', znak)
+  }
+
+  const oblicz = () => {
+    setResult(Number(number1) + Number(number2))
+    console.log('oblicz=', result)
+  }
+
+  const clear = () => {
+    setNumber1([])
+    setNumber2([])
+    setResult()
+    setOperator('')
   }
 
   return (
@@ -22,16 +42,25 @@ function App() {
       <div className='container'>
         {/* tablica wyników */}
         <div className='wynik'>
-          {/* {result} */}
-          {number1}
+          <div className='gora'>
+            {number1}
+            {operator}
+            {number2}
+          </div>
+          <div className='dol'>{result}</div>
         </div>
         {/* ------------------------- */}
         {/* I rząd */}
-        <div className='btn' onClick={() => {}}>
+        <div
+          className='btn'
+          onClick={() => {
+            clear()
+          }}
+        >
           C
         </div>
         <div className='btn'>/</div>
-        <div className='btn podwojny' name='xxx' onClick={handleOperator}>
+        <div className='btn podwojny' name='xxx' onClick={''}>
           back
         </div>
         {/* II rząd */}
@@ -113,7 +142,13 @@ function App() {
         >
           3
         </div>
-        <div className='btn' value='+' onClick={handleOperator}>
+        <div
+          className='btn'
+          value='+'
+          onClick={() => {
+            handleOperator('+')
+          }}
+        >
           +
         </div>
         {/* V rząd */}
@@ -127,7 +162,14 @@ function App() {
           0
         </div>
         <div className='btn'>,</div>
-        <div className='btn rowna'>=</div>
+        <div
+          className='btn rowna'
+          onClick={() => {
+            oblicz()
+          }}
+        >
+          =
+        </div>
       </div>
     </>
   )

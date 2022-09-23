@@ -57,6 +57,15 @@ body {
   background-color: aquamarine;
   grid-column: 1/5;
   grid-row: 1;
-  font-size: 4rem;
   text-align: right;
+}
+
+.wynik .gora {
+  font-size: 2rem;
+  color: blue;
+}
+
+.wynik .dol {
+  font-size: 3rem;
+  color: blue;
 }
