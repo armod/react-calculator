@@ -69,3 +69,9 @@ body {
   font-size: 3rem;
   color: blue;
 }
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: 2rem;
+}

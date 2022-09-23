@@ -17,26 +17,38 @@ function App() {
     if (operator === '') {
       number1.push(num)
       setNumber1([number1.join('')])
-      console.log(num, number1, number1.join(''))
+      console.log('num= ', number1)
     } else {
       number2.push(num)
       setNumber2([number2.join('')])
+      console.log('num= ', number2)
       //setOperator('')
-      console.log(num, number2)
     }
+    console.log('operator=', operator)
   }
 
   const handleOperator = (znak) => {
-    setOperator(znak)
+    if (operator === '') {
+      setOperator(znak)
+    } else {
+      oblicz()
+      setOperator(znak)
+    }
     console.log('znak=', znak)
   }
-  let tab = []
+
   const oblicz = () => {
     if (operator === '+') {
       setResult(Number(number1) + Number(number2))
+      setNumber1(Number(number1) + Number(number2))
+      setNumber2([])
+      setOperator('')
     }
     if (operator === '-') {
       setResult(Number(number1) - Number(number2))
+      setNumber1(Number(number1) - Number(number2))
+      setNumber2([])
+      setOperator('')
     }
     if (operator === '/') {
       if (Number(number2) === 0) {
@@ -45,14 +57,19 @@ function App() {
         clear()
       } else {
         setResult(Number(number1) / Number(number2))
+        setNumber1(Number(number1) / Number(number2))
+        setNumber2([])
+        setOperator('')
       }
     }
     if (operator === 'x') {
       setResult(Number(number1) * Number(number2))
+      setNumber1(Number(number1) * Number(number2))
+      setNumber2([])
+      setOperator('')
     }
-    tab = number1.concat(number2)
-    // setOperator('')
-    console.log('oblicz=', result, setResult, 'tab', tab)
+
+    console.log('oblicz=', result, setResult)
   }
 
   const clear = () => {
@@ -64,7 +81,7 @@ function App() {
 
   return (
     <>
-      {error}
+      <div className='error'>{error}</div>
       <div className='container'>
         {/* tablica wyników */}
         <div className='wynik'>
