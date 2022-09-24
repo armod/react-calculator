@@ -8,6 +8,7 @@ function App() {
   const [operator, setOperator] = useState('')
   const [result, setResult] = useState()
   const [error, setError] = useState('')
+  const [znak, setZnak] = useState(false)
 
   const notify = () => {
     toast('Wow so easy!')
@@ -17,7 +18,7 @@ function App() {
     if (operator === '') {
       number1.push(num)
       setNumber1([number1.join('')])
-      console.log('num= ', number1)
+      console.log('num1= ', number1)
     } else {
       number2.push(num)
       setNumber2([number2.join('')])
@@ -35,6 +36,44 @@ function App() {
       setOperator(znak)
     }
     console.log('znak=', znak)
+  }
+
+  const handleZnak = () => {
+    setZnak(!znak)
+    if (number1 !== []) {
+      setNumber1([number1 * -1])
+    }
+    console.log(znak)
+  }
+
+  const handleBack = () => {
+    if ((number1 !== []) & (number2[0] === '')) {
+      let temp = number1.toString().split('')
+      temp.pop()
+      setNumber1([temp.join('')])
+      console.log('pop=', temp)
+    }
+    if ((number1 !== []) & (number2 !== [])) {
+      let temp2 = number2.toString().split('')
+      temp2.pop()
+      setNumber2([temp2.join('')])
+      console.log('pop=', temp2)
+    }
+  }
+
+  const handleDot = () => {
+    let dot = number1.map((a) => a === '.')
+    console.log('dot', dot)
+    if (dot[0] === false) {
+      number1.push('.')
+      setNumber1([number1.join('')])
+      console.log('wstawiono dota')
+      dot[0] = true
+    } else {
+      console.log('dot już jest')
+    }
+
+    console.log(number1)
   }
 
   const oblicz = () => {
@@ -81,7 +120,10 @@ function App() {
 
   return (
     <>
-      <div className='error'>{error}</div>
+      <div className='error'>
+        {error}
+        {znak}
+      </div>
       <div className='container'>
         {/* tablica wyników */}
         <div className='wynik'>
@@ -110,7 +152,12 @@ function App() {
         >
           /
         </div>
-        <div className='btn podwojny' onClick={notify}>
+        <div
+          className='btn podwojny'
+          onClick={() => {
+            handleBack()
+          }}
+        >
           back
         </div>
         {/* II rząd */}
@@ -215,7 +262,14 @@ function App() {
           +
         </div>
         {/* V rząd */}
-        <div className='btn'>+/-</div>
+        <div
+          className='btn'
+          onClick={() => {
+            handleZnak()
+          }}
+        >
+          +/-
+        </div>
         <div
           className='btn'
           onClick={() => {
@@ -224,7 +278,14 @@ function App() {
         >
           0
         </div>
-        <div className='btn'>,</div>
+        <div
+          className='btn'
+          onClick={() => {
+            handleDot()
+          }}
+        >
+          ,
+        </div>
         <div
           className='btn rowna'
           onClick={() => {
