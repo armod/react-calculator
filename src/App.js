@@ -10,11 +10,8 @@ function App() {
   const [error, setError] = useState('')
   const [znak, setZnak] = useState(false)
 
-  const notify = () => {
-    toast('Wow so easy!')
-  }
-
   const handleNumber = (num) => {
+    toast('Wow so easy!')
     if (operator === '') {
       number1.push(num)
       setNumber1([number1.join('')])
@@ -62,7 +59,7 @@ function App() {
   }
 
   const handleDot = () => {
-    let dot = number1.map((a) => a === '.')
+    let dot = number1.map((a) => a === '.') //mogłem tu dac includes()
     console.log('dot', dot)
     if (dot[0] === false) {
       number1.push('.')
